@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visual Cake Customizer</title>
+  <style>
+    /* Base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #fdf6e3, #ffe4e1);
+  background-attachment: fixed;
+  color: #333;
+}
+
+/* Container */
+.main-container {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Cake Customizer Area */
+#customizer-area {
+  background-color: #fffaf5;
+  border-radius: 12px;
+  padding: 25px 30px;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Headings */
+#customizer-area h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #d16a7c;
+}
+
+.customizer-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #c75c5c;
+}
+
+/* Layout Containers */
+.customizer-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.customizer-section {
+  flex: 1 1 250px;
+  background-color: #fff0f0;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Carousel Controls */
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.carousel-controls button {
+  background-color: #ffb6c1;
+  border: none;
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.carousel-controls button:hover {
+  background-color: #ff9aaf;
+}
+
+.carousel img {
+  max-height: 120px;
+  width: auto;
+  border-radius: 8px;
+}
+
+.label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Lower area */
+#lower-area {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+#lower-area > div {
+  flex: 1 1 250px;
+  background-color: #fff0f5;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Age Input */
+#age-candles {
+  width: 80px;
+  padding: 5px 8px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Final Cake Display */
+#final-cake {
+  text-align: center;
+  position: relative;
+}
+
+#final-cake img {
+  display: block;
+  margin: 6px auto;
+  max-height: 70px;
+}
+
+/* Dedication Text Area */
+#dedication-message {
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  resize: none;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Font toggle controls */
+#font-toggle-controls button {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#font-toggle-controls button:hover {
+  background-color: #ddd;
+}
+
+#current-font-style {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Done button */
+#done-button {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  background-color: #ffa3b1;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 5px 15px rgba(255, 143, 160, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#done-button:hover {
+  background-color: #ff8b9e;
+  transform: scale(1.05);
+}
+
+</style>
+
+</head>
+<body>
+  <div class="main-container">
+    <div class="customizer-area" id="customizer-area">
+  <h1>Visual Cake Customizer</h1>
+
+  <div class="customizer-container">
+    <div class="customizer-section" id="base-section">
+      <h2>Choose Base</h2>
+      <div class="carousel">
+        <div class="carousel-controls">
+          <button onclick="prev('base')">⬅</button>
+          <img id="base-preview" src="images/base/vanilla.png" alt="Cake Base" />
+          <button onclick="next('base')">➡</button>
+        </div>
+        <div class="label" id="base-label">Vanilla</div>
+      </div>
+    </div>
+
+    <div class="customizer-section" id="frosting-section">
+      <h2>Choose Frosting</h2>
+      <div class="carousel">
+        <div class="carousel-controls">
+          <button onclick="prev('frosting')">⬅</button>
+          <img id="frosting-preview" src="images/frosting/vanilla.png" alt="Frosting" />
+          <button onclick="next('frosting')">➡</button>
+        </div>
+        <div class="label" id="frosting-label">Vanilla</div>
+      </div>
+    </div>
+
+    <div class="customizer-section" id="topping-section">
+      <h2>Choose Toppings</h2>
+      <div class="carousel">
+        <div class="carousel-controls">
+          <button onclick="prev('topping')">⬅</button>
+          <img id="topping-preview" src="images/topping/strawberries.png" alt="Topping" />
+          <button onclick="next('topping')">➡</button>
+        </div>
+        <div class="label" id="topping-label">Strawberries</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lower-area" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+      <h3>Add Age Candles?</h3>
+      <input type="number" id="age-candles" placeholder="Enter age" min="0">
+      <button onclick="addAgeCandles()">Add</button>
+    </div>
+
+    <div id="final-cake">
+      <h2>Your Final Cake</h2>
+      <img id="final-base" src="" alt="Final Base" />
+      <img id="final-frosting" src="" alt="Final Frosting" />
+      <img id="final-topping" src="" alt="Final Topping" />
+    </div>
+
+    <div style="text-align: center;">
+      <h3>Dedication Message</h3>
+      <textarea id="dedication-message" placeholder="Your message" rows="3" cols="20" style="font-family: sans-serif; font-weight: bold; text-align: center; width: 200px; height: 70px; resize: none;"></textarea>
+      <div id="font-toggle-controls" style="display: flex; gap: 15px; margin-top: 0.7rem; justify-content: center; align-items: center;">
+        <button onclick="toggleFont(-1)" style="padding: 8px 15px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; font-size: 1rem; background-color: #eee;">⬅ Font</button>
+        <span id="current-font-style" style="font-size: 1.1rem; min-width: 80px; text-align: center;">Sans-serif</span>
+        <button onclick="toggleFont(1)" style="padding: 8px 15px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer; font-size: 1rem; background-color: #eee;">Font ➡</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="done-button" onclick="showFinalCake()">🎂 Done</button>
+</div>
+
+    <div class="receipt-area" id="receipt-area">
+      <div id="receipt-header">
+        Receipt
+      </div>
+      <div id="receipt-content">
+        <div class="receipt-info" id="receipt-name">
+          Name: <input type="text" placeholder="Your name" />
+        </div>
+
+        <div class="receipt-info">
+          <div class="label">Base:</div>
+          <div class="name" id="receipt-base">Vanilla</div>
+          <div class="price" id="receipt-base-price">$5.00</div>
+        </div>
+
+        <div class="receipt-info">
+          <div class="label">Frosting:</div>
+          <div class="name" id="receipt-frosting">Vanilla</div>
+          <div class="price" id="receipt-frosting-price">$2.00</div>
+        </div>
+
+        <div class="receipt-info">
+          <div class="label">Topping:</div>
+          <div class="name" id="receipt-topping">Whipped Cream</div>
+          <div class="price" id="receipt-topping-price">$3.00</div>
+        </div>
+
+        <hr />
+        <div class="receipt-info">
+          <strong>Total: $<span id="receipt-total">15.00</span></strong>
+        </div>
+
+        <div id="receipt-final-cake">
+          <img id="receipt-final-base" src="" alt="Receipt Base" />
+          <img id="receipt-final-frosting" src="" alt="Receipt Frosting" />
+          <img id="receipt-final-topping" src="" alt="Receipt Topping" />
+        </div>
+      </div>
+      <button id="confirm-button" onclick="confirmOrder()" style="background-color: #ff8c42; border: none; color: white; padding: 0.6rem 1.2rem; font-weight: bold; border-radius: 6px; cursor: pointer; margin-bottom: 0.5rem; width: 80%;">
+        Confirm
+      </button>
+      <button id="reset-button" onclick="resetCake()" style="background-color: #ccc; border: none; color: #333; padding: 0.6rem 1.2rem; font-weight: bold; border-radius: 6px; cursor: pointer; width: 80%;">
+        Reset
+      </button>
+    </div>
+  </div>
+</body>
+
+
+  <script>
+  const images = {
+    base: ["images/base/vanilla.png", "images/base/chocolate.png", "images/base/redvelvet.png"],
+    frosting: ["images/frosting/strawberry.png", "images/frosting/chocolate.png", "images/frosting/vanilla.png"],
+    topping: [
+      "images/topping/strawberries.png",
+      "images/topping/whippedcream.png",
+      "images/topping/cherries.png",
+      "images/topping/birthday.png",
+      "images/topping/disneyprincess.png"
+    ]
+  };
+
+  const labels = {
+    base: ["Vanilla", "Chocolate", "Red Velvet"],
+    frosting: ["Strawberry", "Chocolate", "Vanilla"],
+    topping: ["Strawberries", "Whipped Cream", "Cherries", "Birthday", "Disney Princess"]
+  };
+
+  const prices = {
+    base: [500.0, 600.0, 650.0],
+    frosting: [200.0, 250., 200.0],
+    topping: [300.0, 250., 250., 350.0, 400.0]
+  };
+
+  const defaultIndices = {
+    base: 0,
+    frosting: 2,
+    topping: 0
+  };
+
+  const currentIndex = {
+    base: defaultIndices.base,
+    frosting: defaultIndices.frosting,
+    topping: defaultIndices.topping
+  };
+
+  function updateImage(layer) {
+    document.getElementById(`${layer}-preview`).src = images[layer][currentIndex[layer]];
+    document.getElementById(`${layer}-label`).textContent = labels[layer][currentIndex[layer]];
+    document.getElementById(`receipt-${layer}`).textContent = labels[layer][currentIndex[layer]];
+
+    // Update individual price in receipt
+    document.getElementById(`receipt-${layer}-price`).textContent = `$${prices[layer][currentIndex[layer]].toFixed(2)}`;
+
+    // Update final cake images live:
+    document.getElementById(`final-${layer}`).src = images[layer][currentIndex[layer]];
+
+    // Update receipt side small cake images:
+    document.getElementById(`receipt-final-${layer}`).src = images[layer][currentIndex[layer]];
+
+    updateTotal();
+  }
+
+  function prev(layer) {
+    currentIndex[layer] = (currentIndex[layer] - 1 + images[layer].length) % images[layer].length;
+    updateImage(layer);
+  }
+
+  function next(layer) {
+    currentIndex[layer] = (currentIndex[layer] + 1) % images[layer].length;
+    updateImage(layer);
+  }
+
+  function showFinalCake() {
+        // Get values from dedication and age candles inputs
+        const dedicationText = document.getElementById('dedication-message').value.trim();
+        const ageCandlesValue = document.getElementById('age-candles').value.trim();
+        let additionalCost = 0;
+
+        // Add cost for dedication if there's a message
+        if (dedicationText) {
+            const dedicationPrice = 100.00; // Updated price
+            additionalCost += dedicationPrice;
+            // Add a line item to the receipt
+            const receiptContent = document.getElementById("receipt-content");
+            const dedicationItem = document.createElement('div');
+            dedicationItem.classList.add('receipt-info');
+            dedicationItem.innerHTML = `
+                <div class="label">Dedication:</div>
+                <div class="name"></div>
+                <div class="price">$${dedicationPrice.toFixed(2)}</div>
+            `;
+            receiptContent.insertBefore(dedicationItem, document.querySelector('#receipt-total').parentNode.parentNode);
+        }
+
+        // Add cost for age candles if a number is entered
+        if (ageCandlesValue) {
+            const age = parseInt(ageCandlesValue);
+            if (!isNaN(age)) {
+                const candlesPrice = 50.00; // Updated price
+                additionalCost += candlesPrice;
+                // Add a line item for candles
+                const receiptContent = document.getElementById("receipt-content");
+                const candlesItem = document.createElement('div');
+                candlesItem.classList.add('receipt-info');
+                candlesItem.innerHTML = `
+                    <div class="label">Birthday:</div>
+                    <div class="name">Age (${age}) Candles</div>
+                    <div class="price">$${candlesPrice.toFixed(2)}</div>
+                `;
+                receiptContent.insertBefore(candlesItem, document.querySelector('#receipt-total').parentNode.parentNode);
+            }
+        }
+
+        // Update the total price
+        if (additionalCost > 0) {
+            const currentTotal = parseFloat(document.getElementById("receipt-total").textContent);
+            const newTotal = currentTotal + additionalCost;
+            document.getElementById("receipt-total").textContent = newTotal.toFixed(2);
+        }
+
+        // Show receipt content
+        document.getElementById("receipt-content").style.display = "block";
+
+        // Disable cake maker area
+        document.getElementById("customizer-area").classList.add("disabled");
+
+        // Scroll receipt area into view
+        document.getElementById("receipt-area").scrollIntoView({ behavior: "smooth" });
+        document.getElementById("confirm-button").style.display = "block";
+        document.getElementById("reset-button").style.display = "block";
+    }
+  function resetCake() {
+    // Reset indices
+    currentIndex.base = defaultIndices.base;
+    currentIndex.frosting = defaultIndices.frosting;
+    currentIndex.topping = defaultIndices.topping;
+
+    updateImage("base");
+    updateImage("frosting");
+    updateImage("topping");
+
+    // Hide receipt content
+    document.getElementById("receipt-content").style.display = "none";
+
+    // Enable cake maker area
+    document.getElementById("customizer-area").classList.remove("disabled");
+
+    // Clear name input
+    document.querySelector("#receipt-name input").value = "";
+    document.getElementById("confirm-button").style.display = "none";
+    document.getElementById("reset-button").style.display = "none";
+
+    // Clear dedication message textarea
+    document.getElementById("dedication-message").value = "";
+
+    // Clear age candles input
+    document.getElementById("age-candles").value = "";
+
+    // --- Remove Dedication and Candles from Receipt ---
+    const receiptContent = document.getElementById("receipt-content");
+    const receiptInfoItems = receiptContent.querySelectorAll('.receipt-info');
+
+    receiptInfoItems.forEach(item => {
+        const label = item.querySelector('.label');
+        if (label) {
+            if (label.textContent.includes("Dedication:")) {
+                item.remove();
+            } else if (label.textContent.includes("Birthday:")) {
+                item.remove();
+            }
+        }
+    });
+
+    
+    const initialTotal = parseFloat(document.getElementById("base-price").textContent); // Assuming you have an element with the base price
+    document.getElementById("receipt-total").textContent = initialTotal.toFixed(2);
+}
+  function updateTotal() {
+    const total = prices.base[currentIndex.base] + prices.frosting[currentIndex.frosting] + prices.topping[currentIndex.topping];
+    document.getElementById("receipt-total").textContent = total.toFixed(2);
+  }
+
+  function confirmOrder() {
+    const nameInput = document.querySelector("#receipt-name input");
+    const customerName = nameInput.value.trim();
+
+    if (customerName === "") {
+      alert("Please enter your name before confirming the order.");
+      return;
+    }
+
+    // Calculate pickup date 5 days ahead
+    const pickupDate = new Date();
+    pickupDate.setDate(pickupDate.getDate() + 5);
+    const pickupDateString = pickupDate.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric"
+    });
+
+    // Hide receipt content
+    const receiptContent = document.getElementById("receipt-content");
+    receiptContent.style.display = "none";
+
+    // Hide buttons
+    document.getElementById("confirm-button").style.display = "none";
+    document.getElementById("reset-button").style.display = "none";
+
+    // Show thank-you message with pickup date
+    const receiptArea = document.getElementById("receipt-area");
+    receiptArea.innerHTML = `
+      <div style="text-align: center; padding: 2rem;">
+        <h2>Thank you Ma'am/Sir ${customerName}, your order has been confirmed! 🎉</h2>
+        <p>Please pick up by: <strong>${pickupDateString}</strong></p>
+        <button onclick="location.reload()" style="margin-top: 2rem; background-color: #ff8c42; border: none; color: white; padding: 0.8rem 1.5rem; font-weight: bold; border-radius: 8px; cursor: pointer;">
+          Order Again?
+        </button>
+      </div>
+    `;
+  }
+
+  function orderAgain() {
+    location.reload(); // This reloads the current page
+  }
+
+  // Age Candles functionality
+  function addAgeCandles() {
+    const age = document.getElementById('age-candles').value;
+    if (age) {
+      console.log(`Age candles added: ${age}`);
+      // In a real application, you might update the final cake image
+      // or add this to the receipt. For now, we'll just log it.
+    } else {
+      alert("Please enter the age for the candles.");
+    }
+  }
+
+  // Dedication Message functionality
+  const dedicationTextArea = document.getElementById('dedication-message');
+  const currentFontStyleSpan = document.getElementById('current-font-style');
+  const fontStyles = ["sans-serif", "cursive", "monospace", "serif"];
+  let currentFontIndex = 0;
+
+  function updateDedicationFont() {
+    dedicationTextArea.style.fontFamily = fontStyles[currentFontIndex];
+    currentFontStyleSpan.textContent = fontStyles[currentFontIndex];
+  }
+
+  function toggleFont(direction) {
+    currentFontIndex = (currentFontIndex + direction + fontStyles.length) % fontStyles.length;
+    updateDedicationFont();
+  }
+
+  // Initialize font
+  updateDedicationFont();
+
+  // Initialize all images and receipt
+  updateImage("base");
+  updateImage("frosting");
+  updateImage("topping");
+  
+</script>
+</body>
+</html>
